@@ -69,26 +69,29 @@ public class ColorFilterView extends View {
 //        mPaint.setColorFilter(duffColorFilter);
 //        canvas.drawBitmap(bitmap,0,0,mPaint);
 
-        float[] colorMatrix = {
-                1,0,0,0,0,   //red
-                0,1,0,0,0,   //green
-                0,0,2,0,0,   //blue
-                0,0,0,1,0    //alpha
-        };
-
-        // 浪漫
-        final float colormatrix_langman[] = {
-                0.9f, 0, 0, 0, 63.0f,
-                0, 0.9f, 0, 0, 63.0f,
-                0, 0, 0.9f, 0, 63.0f,
-                0, 0, 0, 1.0f, 0};
+//        float[] colorMatrix = {
+//                1,0,0,0,0,   //red
+//                0,1,0,0,0,   //green
+//                0,0,2,0,0,   //blue
+//                0,0,0,1,0    //alpha
+//        };
+//
+//        // 浪漫
+//        final float colormatrix_langman[] = {
+//                0.9f, 0, 0, 0, 63.0f,
+//                0, 0.9f, 0, 0, 63.0f,
+//                0, 0, 0.9f, 0, 63.0f,
+//                0, 0, 0, 1.0f, 0};
 
         ColorMatrix cm = new ColorMatrix();
 
         //色调调节
-        cm.setRotate(0, 45);
+//        cm.setRotate(0, 45);
+//        cm.setScale(1,1,2,1);
+        // 饱和度调节 0-无色差 , 1- 默认效果 , >1 饱和度加强
+        cm.setSaturation(2);
 
-        mMatrixColorFilter = new ColorMatrixColorFilter(colormatrix_langman);
+        mMatrixColorFilter = new ColorMatrixColorFilter(cm);
         mPaint.setColorFilter(mMatrixColorFilter);
         canvas.drawBitmap(bitmap, 0, 0, mPaint);
     }
