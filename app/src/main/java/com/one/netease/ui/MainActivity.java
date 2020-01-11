@@ -2,7 +2,7 @@ package com.one.netease.ui;
 
 import android.os.Bundle;
 
-import com.one.netease.ui.transform.SaveRestoreView;
+import com.one.netease.ui.split.SplitView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -11,7 +11,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(new SaveRestoreView(this));
+        setContentView(new SplitView(this));
     }
 
 
