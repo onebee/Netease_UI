@@ -66,7 +66,7 @@ public class XfermodeView extends View {
 //        //目标图
         canvas.drawBitmap(createRectBitmap(mWidth, mHeight), 0, 0, mPaint);
 //        //设置混合模式
-        mPaint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.DST_OVER));
+        mPaint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.DST_IN));
 //        //源图，重叠区域右下角部分
         canvas.drawBitmap(createCircleBitmap(mWidth, mHeight), 0, 0, mPaint);
 //        //清除混合模式
