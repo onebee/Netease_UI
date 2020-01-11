@@ -48,7 +48,7 @@ public class SplitView extends View {
                 ball.vY = rangInt(-15, 35);
                 //加速度
                 ball.aX = 0;
-                ball.aY = 0.98f;
+                ball.aY =0.98f;
                 mBalls.add(ball);
 
             }
