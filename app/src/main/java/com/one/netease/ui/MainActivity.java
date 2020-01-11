@@ -2,8 +2,6 @@ package com.one.netease.ui;
 
 import android.os.Bundle;
 
-import com.one.netease.ui.split.SplitView;
-
 import androidx.appcompat.app.AppCompatActivity;
 
 public class MainActivity extends AppCompatActivity {
@@ -11,7 +9,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(new SplitView(this));
+        setContentView(R.layout.activity_main_splash);
     }
 
 
