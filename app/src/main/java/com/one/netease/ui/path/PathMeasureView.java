@@ -10,7 +10,6 @@ import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.PathMeasure;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.View;
 
 import com.one.netease.ui.R;
@@ -137,27 +136,38 @@ public class PathMeasureView extends View {
         mPath.addCircle(0, 0, 200, Path.Direction.CW);
         canvas.drawPath(mPath, mPaint);
 
-        mFloat +=0.01;
+        mFloat += 0.01;
         if (mFloat >= 1) {
-            mFloat=0;
+            mFloat = 0;
         }
 
+//        PathMeasure pathMeasure = new PathMeasure(mPath, false);
+//        pathMeasure.getPosTan(pathMeasure.getLength()*mFloat, pos, tan);
+//        Log.i(TAG, " pos[0]=" + pos[0] + " --- pos[1]=" + pos[1]);
+//        Log.i(TAG, " tan[0]=" + tan[0] + " --- tan[1]=" + tan[1]);
+//
+//        // 计算出当前的切线与X轴 夹角的度数
+//        double degrees = Math.atan2(tan[1],tan[0]) * 180.0 /Math.PI;
+//        Log.i(TAG, " degrees=" +degrees);
+//
+//        mMatrix.reset();
+//        // 进行角度旋转
+//        mMatrix.postRotate((float) degrees, mBitmap.getWidth() / 2, mBitmap.getHeight() / 2);
+//        // 将图片的绘制中心与当前点重合
+//        mMatrix.postTranslate(pos[0]-mBitmap.getWidth()/2,pos[1]-mBitmap.getHeight()/2);
+//        canvas.drawBitmap(mBitmap,mMatrix,mPaint);
+
         PathMeasure pathMeasure = new PathMeasure(mPath, false);
-        pathMeasure.getPosTan(pathMeasure.getLength()*mFloat, pos, tan);
-        Log.i(TAG, " pos[0]=" + pos[0] + " --- pos[1]=" + pos[1]);
-        Log.i(TAG, " tan[0]=" + tan[0] + " --- tan[1]=" + tan[1]);
 
-        // 计算出当前的切线与X轴 夹角的度数
-        double degrees = Math.atan2(tan[1],tan[0]) * 180.0 /Math.PI;
-        Log.i(TAG, " degrees=" +degrees);
+        // 将位置信息和tan 信息保存在mMatrix 里面
+        pathMeasure.getMatrix(pathMeasure.getLength() * mFloat, mMatrix,
+                PathMeasure.POSITION_MATRIX_FLAG | PathMeasure.TANGENT_MATRIX_FLAG
+        );
 
-        mMatrix.reset();
-        // 进行角度旋转
-        mMatrix.postRotate((float) degrees, mBitmap.getWidth() / 2, mBitmap.getHeight() / 2);
-        // 将图片的绘制中心与当前点重合
-        mMatrix.postTranslate(pos[0]-mBitmap.getWidth()/2,pos[1]-mBitmap.getHeight()/2);
+        // 将图片的旋转坐标调整到图片中心位置
+        mMatrix.preTranslate(-mBitmap.getWidth() / 2, -mBitmap.getHeight() / 2);
+
         canvas.drawBitmap(mBitmap,mMatrix,mPaint);
-
         invalidate();
 
     }
