@@ -1,6 +1,7 @@
 package com.one.netease.ui;
 
 import android.os.Bundle;
+import android.view.MotionEvent;
 
 import com.one.netease.ui.path.PathMeasureView;
 
@@ -15,4 +16,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent ev) {
+        return super.dispatchTouchEvent(ev);
+    }
 }
