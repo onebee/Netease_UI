@@ -1,2 +1,2 @@
-include ':app', ':TouchSample'
+include ':app', ':TouchSample', ':animatesample'
 rootProject.name='Netease_UI'
