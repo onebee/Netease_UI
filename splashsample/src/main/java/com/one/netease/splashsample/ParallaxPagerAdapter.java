@@ -1,5 +1,7 @@
 package com.one.netease.splashsample;
 
+import java.util.List;
+
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -10,9 +12,11 @@ import androidx.fragment.app.FragmentPagerAdapter;
  */
 public class ParallaxPagerAdapter extends FragmentPagerAdapter {
 
+    private List<ParallaxFragment> mFragments;
 
-    public ParallaxPagerAdapter(@NonNull FragmentManager fm) {
+    public ParallaxPagerAdapter(@NonNull FragmentManager fm,List<ParallaxFragment> fragments) {
         super(fm);
+        this.mFragments=fragments;
     }
 
     public ParallaxPagerAdapter(@NonNull FragmentManager fm, int behavior) {
@@ -22,11 +26,11 @@ public class ParallaxPagerAdapter extends FragmentPagerAdapter {
     @NonNull
     @Override
     public Fragment getItem(int position) {
-        return null;
+        return mFragments.get(position);
     }
 
     @Override
     public int getCount() {
-        return 0;
+        return mFragments.size();
     }
 }
