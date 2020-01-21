@@ -26,8 +26,6 @@ public class MyKeyframeSet {
     public static MyKeyframeSet ofFloat(float[] values) {
 
         int numKeyframe = values.length;
-
-
         MyFloatKeyframe keyframes[] = new MyFloatKeyframe[numKeyframe];
         keyframes[0] = new MyFloatKeyframe(0, values[0]);
         for (int i = 1; i < numKeyframe; ++i) {
