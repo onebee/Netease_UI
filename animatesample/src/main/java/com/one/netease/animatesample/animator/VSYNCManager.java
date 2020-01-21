@@ -10,7 +10,7 @@ public class VSYNCManager {
 
     private static final VSYNCManager ourInstance = new VSYNCManager();
 
-    public static VSYNCManager getOurInstance() {
+    public static VSYNCManager getInstance() {
         return ourInstance;
     }
 
@@ -26,17 +26,22 @@ public class VSYNCManager {
         public void run() {
             while (true) {
 
-                for (AnimatorFrameCallBack animatorFrameCallBack : list) {
-                    animatorFrameCallBack.doAnimationFrame(System.currentTimeMillis());
-                }
                 try {
                     Thread.sleep(16);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
+
+                for (AnimatorFrameCallBack animatorFrameCallBack : list) {
+                    animatorFrameCallBack.doAnimationFrame(System.currentTimeMillis());
+                }
             }
         }
     };
+
+    public void add(AnimatorFrameCallBack animationFrameCallback) {
+        list.add(animationFrameCallback);
+    }
 
     interface AnimatorFrameCallBack {
 

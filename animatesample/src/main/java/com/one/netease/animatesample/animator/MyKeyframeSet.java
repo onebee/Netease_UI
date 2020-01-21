@@ -17,6 +17,7 @@ public class MyKeyframeSet {
     MyFloatKeyframe mFirstKeyframe;
     List<MyFloatKeyframe> mKeyframes;
 
+
     public MyKeyframeSet(MyFloatKeyframe... keyframes) {
         mKeyframes = Arrays.asList(keyframes);
         mFirstKeyframe = keyframes[0];
@@ -33,5 +34,21 @@ public class MyKeyframeSet {
         }
 
         return new MyKeyframeSet(keyframes);
+    }
+
+    public Object getValue(float fraction) {
+        MyFloatKeyframe prevKeyframe = mFirstKeyframe;
+        for (int i = 1; i < mKeyframes.size(); ++i) {
+            MyFloatKeyframe nextKeyframes = mKeyframes.get(i);
+            nextKeyframes = mKeyframes.get(i);
+
+            if (fraction < nextKeyframes.getFraction()) {
+                return mEvaluator.evaluate(fraction, prevKeyframe.getValue(), nextKeyframes.getValue());
+            }
+            prevKeyframe = nextKeyframes;
+
+        }
+
+        return null;
     }
 }
