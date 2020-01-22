@@ -1,6 +1,7 @@
 package com.one.netease.splashsample;
 
 import android.content.Context;
+import android.content.res.TypedArray;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -39,6 +40,21 @@ public class ParallaxLayoutInflater extends LayoutInflater {
 
     class ParallaxFactory implements Factory2 {
 
+        private final String[] sClassPrefix = {
+                "android.widget.",
+                "android.view."
+
+        };
+
+        int[] attrIds = {
+                R.attr.a_in,
+                R.attr.a_out,
+                R.attr.x_in,
+                R.attr.x_out,
+                R.attr.y_in,
+                R.attr.y_out,
+        };
+
         private LayoutInflater inflater;
 
         public ParallaxFactory(LayoutInflater inflater) {
@@ -50,16 +66,64 @@ public class ParallaxLayoutInflater extends LayoutInflater {
         public View onCreateView(@Nullable View parent, @NonNull String name, @NonNull Context context, @NonNull AttributeSet attrs) {
 
             View view = null;
-//            createMyView(name, context, attrs);
+            view = createMyView(name, context, attrs);
+            if (view != null) {
+
+                TypedArray a = context.obtainStyledAttributes(attrs, attrIds);
+                if (a != null && a.length() > 0) {
+                    //获取自定义属性的值
+                    ParallaxViewTag tag = new ParallaxViewTag();
+                    tag.alphaIn = a.getFloat(0, 0f);
+                    tag.alphaOut = a.getFloat(1, 0f);
+                    tag.xIn = a.getFloat(2, 0f);
+                    tag.xOut = a.getFloat(3, 0f);
+                    tag.yIn = a.getFloat(4, 0f);
+                    tag.yOut = a.getFloat(5, 0f);
+                    view.setTag(R.id.parallax_view_tag,tag);
+
+
+                }
+
+                fragment.getParallaxViews().add(view);
+
+
+            }
 
             Log.i(TAG, "onCreateView : name - " + name);
             return null;
         }
 
-//        private View createMyView(String name, Context context, AttributeSet attrs) {
-//
-//
-//        }
+        private View createMyView(String name, Context context, AttributeSet attrs) {
+            if (name.contains(".")) {
+                View view = reflectView(name, null, context, attrs);
+                if (view != null) {
+                    return view;
+                }
+            } else {
+                for (String prefix : sClassPrefix) {
+                    View view = reflectView(name, prefix, context, attrs);
+
+                    // 获取系统空间的自定义属性
+
+
+                    if (view != null) {
+                        return view;
+                    }
+                }
+            }
+            return null;
+        }
+
+        private View reflectView(String name, String prefix, Context context, AttributeSet attrs) {
+
+            //通过系统的inflater 创建视图,读取系统的属性
+            try {
+                return inflater.createView(name, prefix, attrs);
+            } catch (ClassNotFoundException e) {
+                e.printStackTrace();
+                return null;
+            }
+        }
 
         @Nullable
         @Override

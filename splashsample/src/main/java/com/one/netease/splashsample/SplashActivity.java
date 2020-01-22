@@ -1,6 +1,7 @@
 package com.one.netease.splashsample;
 
 import android.os.Bundle;
+import android.widget.ImageView;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.FragmentActivity;
@@ -28,5 +29,9 @@ public class SplashActivity extends FragmentActivity {
                 R.layout.view_login,
 
         });
+
+        ImageView iv_man = findViewById(R.id.iv_man);
+        iv_man.setBackgroundResource(R.drawable.man_run);
+        container.setIv_man(iv_man);
     }
 }

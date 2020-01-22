@@ -55,7 +55,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
-    <com.wangyi.splashwangyi.MyView
+    <com.one.netease.splashsample.MyView
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
     <ImageView
