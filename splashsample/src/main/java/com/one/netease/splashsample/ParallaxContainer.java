@@ -44,6 +44,8 @@ public class ParallaxContainer extends FrameLayout implements ViewPager.OnPageCh
             Bundle args = new Bundle();
             // Fragment 中需要加载的布局文件ID
             args.putInt("layoutId",childIds[i]);
+            f.setArguments(args);
+            fragments.add(f);
 
         }
 
@@ -53,8 +55,9 @@ public class ParallaxContainer extends FrameLayout implements ViewPager.OnPageCh
 
         SplashActivity activity = (SplashActivity) getContext();
         ParallaxPagerAdapter adapter = new ParallaxPagerAdapter(activity.getSupportFragmentManager(),fragments);
-        vp.setLayoutParams(new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.MATCH_PARENT));
-        addView(vp);
+        vp.setLayoutParams(new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+        vp.setAdapter(adapter);
+        addView(vp,0);
 
     }
 

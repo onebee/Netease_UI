@@ -13,7 +13,7 @@ public class SplashActivity extends FragmentActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        setContentView(R.layout.activity_main);
         ParallaxContainer container = findViewById(R.id.parallax_container);
 
         container.setUp(new int[]{
