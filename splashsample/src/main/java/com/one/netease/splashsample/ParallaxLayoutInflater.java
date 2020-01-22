@@ -85,27 +85,23 @@ public class ParallaxLayoutInflater extends LayoutInflater {
                 }
 
                 fragment.getParallaxViews().add(view);
+                a.recycle();
 
 
             }
 
             Log.i(TAG, "onCreateView : name - " + name);
-            return null;
+            return view;
         }
 
         private View createMyView(String name, Context context, AttributeSet attrs) {
             if (name.contains(".")) {
-                View view = reflectView(name, null, context, attrs);
-                if (view != null) {
-                    return view;
-                }
+                return reflectView(name, null, context, attrs);
+
             } else {
                 for (String prefix : sClassPrefix) {
                     View view = reflectView(name, prefix, context, attrs);
-
                     // 获取系统空间的自定义属性
-
-
                     if (view != null) {
                         return view;
                     }
