@@ -8,4 +8,11 @@
     <item
         android:drawable="@drawable/intro_item_manrun_2"
         android:duration="200"/>
+
+    <item
+
+        android:drawable="@color/colorAccent"
+        android:duration="300"
+        />
+
 </animation-list>
