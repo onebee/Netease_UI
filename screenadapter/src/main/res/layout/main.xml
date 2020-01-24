@@ -13,8 +13,9 @@
         android:layout_height="wrap_content"
         android:background="#00f"
 
-        app:widthPercent="0.3"
+        app:widthPercent="0.5"
         app:heightPercent="0.75"
+        app:marginLeftPercent="0.5"
 
         />
 
