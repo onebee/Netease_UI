@@ -15,11 +15,11 @@ public class Utils {
     private int mDisplayHeight;
 
 
-
     // 设计稿参考的宽高
-    public static final float STANDRAD_WIDTH = 720;
-    public static final float STANDRAD_HEIGHT = 1280;
-
+//    public static final float STANDRAD_WIDTH = 720;
+//    public static final float STANDRAD_HEIGHT = 1280;
+    public static final float STANDRAD_WIDTH = 1080;
+    public static final float STANDRAD_HEIGHT = 1920;
 
 
     private static Utils utils;
@@ -38,7 +38,7 @@ public class Utils {
                     mDisplayWidth = displayMetrics.heightPixels;
                     mDisplayHeight = displayMetrics.widthPixels;
                 } else {
-                    mDisplayHeight = displayMetrics.heightPixels-getStatusBarHeight(context);
+                    mDisplayHeight = displayMetrics.heightPixels - getStatusBarHeight(context);
                     mDisplayWidth = displayMetrics.widthPixels;
                 }
 
@@ -50,6 +50,7 @@ public class Utils {
 
     /**
      * 获取状态栏的高度
+     *
      * @param context
      * @return
      */
@@ -70,16 +71,16 @@ public class Utils {
 
     /**
      * 获取水平方向的缩放比例
+     *
      * @return
      */
     public float getHorizontalScale() {
-        return mDisplayWidth/STANDRAD_WIDTH;
+        return mDisplayWidth / STANDRAD_WIDTH;
     }
 
 
-
     public float getVerticalSacle() {
-        return mDisplayHeight/STANDRAD_HEIGHT;
+        return mDisplayHeight / STANDRAD_HEIGHT;
     }
 
 }

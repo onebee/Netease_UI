@@ -10,6 +10,9 @@ import android.widget.RelativeLayout;
  */
 public class ScreenAdapterLayout extends RelativeLayout {
 
+    /**
+     * 让测量 只执行一次
+     */
     private boolean flag;
 
     public ScreenAdapterLayout(Context context) {
