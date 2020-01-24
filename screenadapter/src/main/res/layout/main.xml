@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.percentlayout.widget.PercentRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.one.netease.screenadapter.PercentRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
 
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
@@ -13,10 +13,11 @@
         android:layout_height="wrap_content"
         android:background="#00f"
 
-        app:layout_widthPercent="50%"
-        app:layout_heightPercent="75%"
+        android:layout_centerInParent="true"
+        app:widthPercent="0.3"
+        app:heightPercent="0.75"
 
         />
 
 
-</androidx.percentlayout.widget.PercentRelativeLayout>
+</com.one.netease.screenadapter.PercentRelativeLayout>
