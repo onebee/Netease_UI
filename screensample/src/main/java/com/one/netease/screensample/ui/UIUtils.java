@@ -103,4 +103,11 @@ public class UIUtils {
         }
         return defaultValue;
     }
+
+    public int getWidth(int width) {
+        return Math.round((float)width * this.displayMetriceWidth / STANDARD_WIDTH);
+    }
+    public int getHeight(int height) {
+        return Math.round((float)height * this.displayMetriceHeight / (STANDARD_HEIGHT-systemBarHeight));
+    }
 }

@@ -1,29 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.one.netease.screensample.ui.UIRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
+
+    <com.one.netease.screensample.ui.UIRelativeLayout
+        android:id="@+id/line2"
+        android:layout_width="match_parent"
+        android:layout_height="300dp">
+
+        <TextView
+            android:id="@+id/tv1"
+            android:layout_width="1080px"
+            android:layout_height="100px"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:background="@color/colorAccent"
+            android:text="1111"
+
+            />
+
+        <TextView
+            android:layout_width="540px"
+            android:layout_height="100px"
+            android:layout_below="@+id/tv1"
+
+            android:background="@color/colorPrimaryDark"
+            android:text="2222" />
+
+
+    </com.one.netease.screensample.ui.UIRelativeLayout>
+
+
     <TextView
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:id="@+id/tv1"
-        android:layout_width="1080px"
-        android:layout_height="100px"
-        android:background="@color/colorAccent"
-        android:text="1111"
-
-        />
+        android:id="@+id/tv3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/line2"
+        android:background="@color/colorPrimaryDark" />
 
     <TextView
-        android:layout_below="@+id/tv1"
-        android:layout_width="540px"
-        android:layout_height="100px"
+        android:id="@+id/tv4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
 
-        android:text="2222"
-        android:background="@color/colorPrimaryDark"
-        />
+        android:layout_below="@+id/tv3"
 
-</com.one.netease.screensample.ui.UIRelativeLayout>
+        android:background="@color/colorAccent" />
+
+</RelativeLayout>
