@@ -79,7 +79,7 @@ public class Utils {
     }
 
 
-    public float getVerticalSacle() {
+    public float getVerticalScale() {
         return mDisplayHeight / STANDRAD_HEIGHT;
     }
 

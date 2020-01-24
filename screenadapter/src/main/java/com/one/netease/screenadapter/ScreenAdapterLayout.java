@@ -35,7 +35,7 @@ public class ScreenAdapterLayout extends RelativeLayout {
 
 
             float scaleX = Utils.getInstance(getContext()).getHorizontalScale();
-            float scaleY = Utils.getInstance(getContext()).getVerticalSacle();
+            float scaleY = Utils.getInstance(getContext()).getVerticalScale();
 
             int count = getChildCount();
 
