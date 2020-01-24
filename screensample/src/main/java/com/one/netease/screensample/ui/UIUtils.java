@@ -84,6 +84,16 @@ public class UIUtils {
         return (float)(displayMetriceHeight)/(STANDARD_HEIGHT-systemBarHeight);
     }
 
+    /**
+     * 通知屏幕发生改变
+     * @param context
+     * @return
+     */
+    public static UIUtils notifyInstance(Context context) {
+        instance=new UIUtils(context);
+        return instance;
+    }
+
 
     private int getSystemBarHeight(Context context) {
         return getValue(context, "com.android.internal.R$dimen", "system_bar_height", 48);

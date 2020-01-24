@@ -1,6 +1,7 @@
 package com.one.netease.screensample;
 
 import android.content.Context;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -10,6 +11,7 @@ import android.widget.TextView;
 import com.one.netease.screensample.ui.UIUtils;
 import com.one.netease.screensample.ui.ViewCalculateUtil;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class MainActivity extends AppCompatActivity {
@@ -64,6 +66,13 @@ public class MainActivity extends AppCompatActivity {
     protected void onStop() {
         super.onStop();
 
+
+    }
+
+    @Override
+    public void onConfigurationChanged(@NonNull Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        UIUtils.notifyInstance(this);
 
     }
 }
