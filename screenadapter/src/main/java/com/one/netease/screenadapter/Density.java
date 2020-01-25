@@ -2,7 +2,11 @@ package com.one.netease.screenadapter;
 
 import android.app.Activity;
 import android.app.Application;
+import android.content.ComponentCallbacks;
+import android.content.res.Configuration;
 import android.util.DisplayMetrics;
+
+import androidx.annotation.NonNull;
 
 /**
  * @author diaokaibin@gmail.com on 2020-01-25.
@@ -15,13 +19,31 @@ public class Density {
     private static float appScaleDensity; // 字体缩放比例,默认appDensity
 
 
-    public static void setDensity(Application application, Activity activity) {
+    public static void setDensity(final Application application, Activity activity) {
         // 获取当前app 的屏幕显示信息
         DisplayMetrics displayMetrics = application.getResources().getDisplayMetrics();
         if (appDensity == 0) {
             // 初始化赋值操作
             appDensity = displayMetrics.density;
             appScaleDensity = displayMetrics.scaledDensity;
+
+            // 添加字体变化监听回调
+            application.registerComponentCallbacks(new ComponentCallbacks() {
+                @Override
+                public void onConfigurationChanged(@NonNull Configuration newConfig) {
+
+                    // 字体发生更改,重新对 scaleDensity 进行赋值
+                    if (newConfig != null && newConfig.fontScale > 0) {
+                        appScaleDensity = application.getResources().getDisplayMetrics().scaledDensity;
+                    }
+
+                }
+
+                @Override
+                public void onLowMemory() {
+
+                }
+            });
         }
 
         // 计算目标值 density scaleDensity, densityDpi
