@@ -16,10 +16,10 @@ public class Utils {
 
 
     // 设计稿参考的宽高
-//    public static final float STANDRAD_WIDTH = 720;
-//    public static final float STANDRAD_HEIGHT = 1280;
-    public static final float STANDRAD_WIDTH = 1080;
-    public static final float STANDRAD_HEIGHT = 1920;
+//    public static final float STANDARD_WIDTH = 720;
+//    public static final float STANDARD_HEIGHT = 1280;
+    public static final float STANDARD_WIDTH = 1080;
+    public static final float STANDARD_HEIGHT = 1920;
 
 
     private static Utils utils;
@@ -75,12 +75,12 @@ public class Utils {
      * @return
      */
     public float getHorizontalScale() {
-        return mDisplayWidth / STANDRAD_WIDTH;
+        return mDisplayWidth / STANDARD_WIDTH;
     }
 
 
     public float getVerticalSacle() {
-        return mDisplayHeight / STANDRAD_HEIGHT;
+        return mDisplayHeight / STANDARD_HEIGHT;
     }
 
 }
