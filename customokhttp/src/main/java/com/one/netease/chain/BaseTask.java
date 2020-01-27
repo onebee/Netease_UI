@@ -1,4 +1,4 @@
-package com.one.netease.chian;
+package com.one.netease.chain;
 
 /**
  * @author diaokaibin@gmail.com on 2020-01-27.
