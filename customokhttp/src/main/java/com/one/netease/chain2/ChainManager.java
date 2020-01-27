@@ -15,7 +15,7 @@ public class ChainManager implements IBaseTask {
     }
 
 
-    private int index;
+    private int index=0;
 
 
     @Override
