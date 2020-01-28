@@ -46,7 +46,7 @@ public class Dispatcher2 {
                 new ThreadFactory() {
                     @Override
                     public Thread newThread(Runnable r) {
-                        Thread thread = new Thread();
+                        Thread thread = new Thread(r);
                         thread.setName("自定义的线程...");
                         thread.setDaemon(false);
                         return thread;
@@ -82,4 +82,44 @@ public class Dispatcher2 {
 
         return count;
     }
+
+
+    /**
+     * 移除运行完成的任务 把等待队列里面所有的任务 取出来执行 --run 方法
+     * @param call2
+     */
+    public void finished(RealCall2.AsyncCall2 call2) {
+        // 当前运行的任务给回收
+        runningAsyncCalls.remove(call2);
+        // 考虑等待队列里面是否有任务,如果有任务是需要执行的
+        if (readyAsyncCalls.isEmpty()) {
+            return;
+        }
+
+        // 把等待队列中的任务给 移动 运行队列
+        for (RealCall2.AsyncCall2 readyAsyncCall : readyAsyncCalls) {
+            readyAsyncCalls.remove(readyAsyncCall);// 删除等待队列 任务
+
+            runningAsyncCalls.add(readyAsyncCall);// 把刚刚删除的等待队列,加入到运行队列
+
+            // 开始执行任务
+            executorService().execute(readyAsyncCall);
+
+        }
+    }
+
+   /* private <T> void finished(Deque<T> calls, T call, boolean promoteCalls) {
+        int runningCallsCount;
+        Runnable idleCallback;
+        synchronized (this) {
+            if (!calls.remove(call)) throw new AssertionError("Call wasn't in-flight!");
+            if (promoteCalls) promoteCalls();
+            runningCallsCount = runningCallsCount();
+            idleCallback = this.idleCallback;
+        }
+
+        if (runningCallsCount == 0 && idleCallback != null) {
+            idleCallback.run();
+        }
+    }*/
 }

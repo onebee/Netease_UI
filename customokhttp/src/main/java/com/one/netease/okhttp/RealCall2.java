@@ -2,8 +2,6 @@ package com.one.netease.okhttp;
 
 import java.io.IOException;
 
-import okhttp3.Response;
-
 /**
  * @author diaokaibin@gmail.com on 2020-01-28.
  */
@@ -55,16 +53,37 @@ public class RealCall2 implements Call2 {
             boolean signalledCallback = false;
             try {
 
-                Response response = getResponseWithInterceptorChain();
+                Response2 response = getResponseWithInterceptorChain();
                 // 如果用户取消了请求,回调给用户
+                if (mOkHttpClient2.getCanceled()) {
+                    signalledCallback = true;
+                    callback2.onFailure(RealCall2.this, new IOException("用户取消了Canceled"));
+                } else {
+                    signalledCallback = true;
+                    callback2.onResponse(RealCall2.this,response);
+                }
             } catch (Exception e) {
+
+                // 责任的划分
+                if (signalledCallback) {// 回调给用户了 , 是用户操作的时候报错的
+                    System.out.println("用户在使用过程中出错了");
+
+                } else {
+                    callback2.onFailure(RealCall2.this, new IOException("OkHttp getResponseWithInterceptorChain() 方法出错 "+ e.toString()));
+
+                }
+            }finally {
+                //回收处理♻️
+                mOkHttpClient2.dispatcher().finished(this);
 
             }
         }
 
-        private Response getResponseWithInterceptorChain() throws IOException {
+        private Response2 getResponseWithInterceptorChain() throws IOException {
+            Response2 response2 = new Response2();
+            response2.setBody("流程走通");
 
-            return null;
+            return response2;
         }
     }
 
