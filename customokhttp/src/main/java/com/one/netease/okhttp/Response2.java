@@ -18,4 +18,8 @@ public class Response2 {
     public String string() {
         return body;
     }
+
+    public void setStatusCode(int code) {
+
+    }
 }

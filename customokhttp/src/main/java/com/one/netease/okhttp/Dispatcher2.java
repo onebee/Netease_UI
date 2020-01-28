@@ -89,7 +89,7 @@ public class Dispatcher2 {
      * @param call2
      */
     public void finished(RealCall2.AsyncCall2 call2) {
-        // 当前运行的任务给回收
+        // 当前运行完成的任务给回收
         runningAsyncCalls.remove(call2);
         // 考虑等待队列里面是否有任务,如果有任务是需要执行的
         if (readyAsyncCalls.isEmpty()) {

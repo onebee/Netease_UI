@@ -35,7 +35,9 @@ public class Request2 {
         this.url = builder.url;
     }
 
-
+    public Response2 getRequestBody2() {
+        return null;
+    }
 
 
     public final static class Builder{

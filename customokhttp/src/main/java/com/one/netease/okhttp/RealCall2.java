@@ -1,6 +1,12 @@
 package com.one.netease.okhttp;
 
+import com.one.netease.okhttp.chain.ChainManager;
+import com.one.netease.okhttp.chain.Interceptor2;
+import com.one.netease.okhttp.chain.ReRequestInterceptor;
+
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author diaokaibin@gmail.com on 2020-01-28.
@@ -10,6 +16,8 @@ public class RealCall2 implements Call2 {
 
     private OkHttpClient2 mOkHttpClient2;
     private boolean executed;
+
+
     private Request2 request2;
 
 
@@ -18,6 +26,20 @@ public class RealCall2 implements Call2 {
         this.mOkHttpClient2 = okHttpClient2;
         this.request2 = request2;
     }
+
+
+    public OkHttpClient2 getOkHttpClient2() {
+        return mOkHttpClient2;
+    }
+
+    public boolean isExecuted() {
+        return executed;
+    }
+
+    public Request2 getRequest2() {
+        return request2;
+    }
+
 
 
     @Override
@@ -80,10 +102,15 @@ public class RealCall2 implements Call2 {
         }
 
         private Response2 getResponseWithInterceptorChain() throws IOException {
-            Response2 response2 = new Response2();
-            response2.setBody("流程走通");
+//            Response2 response2 = new Response2();
+//            response2.setBody("流程走通");
+//            return response2;
 
-            return response2;
+            List<Interceptor2> interceptor2List = new ArrayList<>();
+            interceptor2List.add(new ReRequestInterceptor());  // 重试拦截器
+
+            ChainManager chainManager = new ChainManager(interceptor2List,0,request2,RealCall2.this);
+           return chainManager.getResponse(request2);// 最终返回的
         }
     }
 
