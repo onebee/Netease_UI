@@ -1,4 +1,4 @@
-package com.one.netease;
+package com.one.netease.network;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
