@@ -12,6 +12,8 @@ import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.net.Socket;
 
+import javax.net.ssl.SSLSocketFactory;
+
 /**
  * @author diaokaibin@gmail.com on 2020-01-28.
  * 连接服务拦截器
@@ -25,8 +27,18 @@ public class ConnectionServerInterceptor implements Interceptor2 {
         SocketRequestServer srs = new SocketRequestServer();
         Request2 request2 = chain.getRequest();  // 更新后的request
 
-        Socket socket = new Socket(srs.getHost(request2), srs.getPort(request2));
+        // 只能访问HTTP 不能访问HTTPS
+        Socket socket = null;
 
+        String result = srs.queryHttpOrHttps(request2.getUrl());
+        if (result != null) {
+            if ("HTTPS".equalsIgnoreCase(result)) {
+                socket = new Socket(srs.getHost(request2), srs.getPort(request2));
+            } else if ("HTTP".equalsIgnoreCase(result)) {
+                socket = SSLSocketFactory.getDefault().createSocket(srs.getHost(request2), srs.getPort(request2));
+            }
+
+        }
         //todo 请求
 
 
@@ -39,7 +51,6 @@ public class ConnectionServerInterceptor implements Interceptor2 {
         bufferedWriter.write(requestAll); // 给服务器发送请求--请求头信息 所有的
 
         bufferedWriter.flush();// 真正的写出去
-
 
 
         //todo 响应

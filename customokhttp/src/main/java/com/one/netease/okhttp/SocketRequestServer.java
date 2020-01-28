@@ -91,4 +91,20 @@ public class SocketRequestServer {
 
         return stringBuffer.toString();
     }
+
+    /***
+     * 获得urlString 是http or https
+     * @param urlString
+     * @return
+     */
+    public String queryHttpOrHttps(String urlString) {
+        try {
+            URL url = new URL(urlString);
+            String protocol = url.getProtocol();
+            return protocol;
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 }

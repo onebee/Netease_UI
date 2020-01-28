@@ -69,7 +69,7 @@ public class MainActivity extends AppCompatActivity {
         call2.enqueue(new Callback2() {
             @Override
             public void onFailure(Call2 call, IOException e) {
-                Log.i(TAG, "myokhttp 请求失败");
+                Log.i(TAG, "myokhttp 请求失败" + e.getMessage());
             }
 
             @Override
