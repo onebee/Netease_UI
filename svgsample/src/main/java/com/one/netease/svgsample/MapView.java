@@ -3,6 +3,7 @@ package com.one.netease.svgsample;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.RectF;
@@ -98,7 +99,7 @@ public class MapView extends View {
         @Override
         public void run() {
             try {
-                InputStream inputStream = context.getResources().openRawResource(R.raw.china);
+                InputStream inputStream = context.getResources().openRawResource(R.raw.plant);
                 DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
                 DocumentBuilder builder = null;
 
@@ -119,13 +120,16 @@ public class MapView extends View {
 
                 for (int i = 0; i < items.getLength(); i++) {
                     Element element = (Element) items.item(i);
-                    String pathData = element.getAttribute("android:pathData");
-                    String fillColor = element.getAttribute("android:fillColor");
+//                    String pathData = element.getAttribute("android:pathData");
+//                    String fillColor = element.getAttribute("android:fillColor");
+                    String pathData = element.getAttribute("d");
+                    String fillColor = element.getAttribute("fill");
                     System.out.println("color : " + fillColor);
                     @SuppressLint("RestrictedApi") Path path = PathParser.createPathFromPathData(pathData);
                     ProviceItem proviceItem = new ProviceItem(path);
 
-                    proviceItem.setDrawColor(colorArray[i % 4]);
+//                    proviceItem.setDrawColor(colorArray[i % 4]);
+                    proviceItem.setDrawColor(Color.parseColor(fillColor));
                     RectF rectF = new RectF();
                     path.computeBounds(rectF, true);
                     left = left == -1 ? rectF.left : Math.min(left, rectF.left);
