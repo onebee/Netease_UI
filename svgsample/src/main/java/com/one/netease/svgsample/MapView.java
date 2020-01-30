@@ -120,6 +120,8 @@ public class MapView extends View {
                 for (int i = 0; i < items.getLength(); i++) {
                     Element element = (Element) items.item(i);
                     String pathData = element.getAttribute("android:pathData");
+                    String fillColor = element.getAttribute("android:fillColor");
+                    System.out.println("color : " + fillColor);
                     @SuppressLint("RestrictedApi") Path path = PathParser.createPathFromPathData(pathData);
                     ProviceItem proviceItem = new ProviceItem(path);
 
@@ -157,7 +159,7 @@ public class MapView extends View {
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        handleTouch(event.getX(), event.getY());
+        handleTouch(event.getX()/scale, event.getY()/scale);
         return super.onTouchEvent(event);
     }
 
