@@ -6,6 +6,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -65,6 +66,10 @@ public class MainActivity extends AppCompatActivity {
 //                 handler2.sendMessage(message);
                 message.what = 3;
 //                handler1.sendMessage(message);
+
+//                new Handler();
+                textView.setText("dddd");
+                Toast.makeText(MainActivity.this, "dddd", Toast.LENGTH_SHORT).show();
         if (handler1!=null)
                 handler1.sendMessageDelayed(message, 3000);
             }
