@@ -1,4 +1,4 @@
-package com.one.netease.taobao;
+package com.one.netease.sourcecode;
 
 import android.content.Intent;
 import android.os.Bundle;

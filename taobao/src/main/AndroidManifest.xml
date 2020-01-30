@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.one.netease.taobao">
+    package="com.one.netease.sourcecode">
 
     <application
         android:allowBackup="true"
@@ -9,8 +9,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".PersonalActivity"></activity>
-        <activity android:name=".MainActivity">
+        <activity android:name="com.one.netease.sourcecode.PersonalActivity"></activity>
+        <activity android:name="com.one.netease.sourcecode.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

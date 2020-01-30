@@ -1,4 +1,4 @@
-package com.one.netease.taobao;
+package com.one.netease.sourcecode;
 
 import org.junit.Test;
 
