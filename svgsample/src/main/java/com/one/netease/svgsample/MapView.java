@@ -115,7 +115,7 @@ public class MapView extends View {
                 float bottom = -1;
 
 
-
+                List<ProviceItem> list = new ArrayList<>();
 
                 for (int i = 0; i < items.getLength(); i++) {
                     Element element = (Element) items.item(i);
@@ -134,7 +134,7 @@ public class MapView extends View {
                     bottom = bottom == -1 ? rectF.bottom : Math.max(bottom, rectF.bottom);
 
 
-                    itemList.add(proviceItem);
+                    list.add(proviceItem);
 
 //                刷新界面
                     Handler handler = new Handler(Looper.getMainLooper());
@@ -147,6 +147,7 @@ public class MapView extends View {
                     });
                 }
 
+                itemList=list;
                 totalRect = new RectF(left,top,right,bottom);
                 postInvalidate();
 
