@@ -5,6 +5,9 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Path;
+import android.graphics.RectF;
+import android.os.Handler;
+import android.os.Looper;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
@@ -39,6 +42,9 @@ public class MapView extends View {
 
 
     private ProviceItem select;// 选中的省份
+    private RectF totalRect;
+
+    private float scale = 1.0f;
 
     public MapView(Context context) throws ParserConfigurationException, IOException, SAXException {
         super(context);
@@ -71,6 +77,7 @@ public class MapView extends View {
 
         if (itemList != null) {
             canvas.save();
+            canvas.scale(scale,scale);
             for (ProviceItem item : itemList) {
                 if (item != select) {
 
@@ -101,6 +108,15 @@ public class MapView extends View {
 
                 Element rootElement = doc.getDocumentElement();
                 NodeList items = rootElement.getElementsByTagName("path");
+
+                float left = -1;
+                float right =-1;
+                float top =-1;
+                float bottom = -1;
+
+
+
+
                 for (int i = 0; i < items.getLength(); i++) {
                     Element element = (Element) items.item(i);
                     String pathData = element.getAttribute("android:pathData");
@@ -108,10 +124,28 @@ public class MapView extends View {
                     ProviceItem proviceItem = new ProviceItem(path);
 
                     proviceItem.setDrawColor(colorArray[i % 4]);
+                    RectF rectF = new RectF();
+                    path.computeBounds(rectF, true);
+                    left = left == -1 ? rectF.left : Math.min(left, rectF.left);
+                    right = right == -1 ? rectF.right : Math.max(right, rectF.right);
+                    top = top == -1 ? rectF.top : Math.min(top, rectF.top);
+                    bottom = bottom == -1 ? rectF.bottom : Math.max(bottom, rectF.bottom);
+
+
                     itemList.add(proviceItem);
 
-
+//                刷新界面
+                    Handler handler = new Handler(Looper.getMainLooper());
+                    handler.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            requestLayout();
+                            invalidate();
+                        }
+                    });
                 }
+
+                totalRect = new RectF(left,top,right,bottom);
                 postInvalidate();
 
             } catch (Exception e) {
@@ -148,4 +182,18 @@ public class MapView extends View {
         }
     }
 
+    @Override
+    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+
+        int width = MeasureSpec.getSize(widthMeasureSpec);
+        int height = MeasureSpec.getSize(heightMeasureSpec);
+        if (totalRect != null) {
+            float mapWidth = totalRect.width();
+            scale = (float) (width / mapWidth);
+
+        }
+
+
+    }
 }
