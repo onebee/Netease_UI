@@ -1,2 +1,2 @@
-include ':app', ':TouchSample', ':animatesample', ':splashsample', ':screensample', ':screenadapter', ':cloundmusic', ':recyclerview', ':customokhttp', ':customview', ':svgsample', ':taobao'
+include ':app', ':TouchSample', ':animatesample', ':splashsample', ':screensample', ':screenadapter', ':cloundmusic', ':recyclerview', ':customokhttp', ':customview', ':svgsample', ':Handler'
 rootProject.name='Netease_UI'
