@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.TextView;
 
 import com.one.netease.EventBus;
 import com.one.netease.event_sample.bean.EventBean;
@@ -14,15 +15,23 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class MainActivity extends AppCompatActivity {
 
+
+    private TextView tv;
+
     public static final String TAG = "onebit>>>";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        tv = findViewById(R.id.tv);
+
 //        EventBus.getDefault().register(this);
         EventBus.getDefault().register(this);
     }
+
+
 
     @Override
     protected void onStart() {
@@ -38,8 +47,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    @Subscribe(threadMode = ThreadMode.BACKGOUND)
+    @Subscribe(threadMode = ThreadMode.MAIN)
     public void getMessage(EventBean bean) {
+
+        tv.setText(bean.name);
 
         Log.i(TAG, "MainActivity receive thread : " + Thread.currentThread().getName());
         Log.i(TAG, "MainActivity receive  : " + bean.name);

@@ -39,7 +39,15 @@ public class SecondActivity extends AppCompatActivity {
 
         Log.i(TAG, "SecondActivity : thread " + Thread.currentThread().getName());
 
-        EventBus.getDefault().post(new EventBean("one bit"));
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                EventBus.getDefault().post(new EventBean("one bit"));
+            }
+        }).start();
+
+
 
         finish();
     }
