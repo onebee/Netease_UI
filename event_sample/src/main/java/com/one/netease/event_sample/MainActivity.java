@@ -7,6 +7,7 @@ import android.view.View;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -47,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
              Log.i(TAG,"MainActivity receive event:" + string);
     }
 
-    @Subscribe(priority = 10,sticky = true)
+    @Subscribe(priority = 10,sticky = true,threadMode = ThreadMode.ASYNC)
     public void event2(String string) {
         Log.i(TAG," MainActivity receive event2 : " + string);
     }
