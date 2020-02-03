@@ -18,28 +18,43 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        EventBus.getDefault().register(this);
     }
 
     @Override
     protected void onStart() {
         super.onStart();
-        EventBus.getDefault().register(this);
+
     }
 
     @Override
     protected void onStop() {
         super.onStop();
-        EventBus.getDefault().unregister(this);
 
+
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (EventBus.getDefault().isRegistered(this)) {
+            EventBus.getDefault().unregister(this);
+        }
     }
 
     @Subscribe
     public void event(String string) {
-             Log.i(TAG,string);
+             Log.i(TAG,"MainActivity receive event:" + string);
+    }
+
+    @Subscribe(priority = 10,sticky = true)
+    public void event2(String string) {
+        Log.i(TAG," MainActivity receive event2 : " + string);
     }
 
     public void jump(View view) {
 
+        EventBus.getDefault().postSticky("sticky");
         startActivity(new Intent(this, SecondActivity.class));
     }
 
