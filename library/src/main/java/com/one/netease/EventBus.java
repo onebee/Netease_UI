@@ -2,6 +2,7 @@ package com.one.netease;
 
 import android.os.Handler;
 import android.os.Looper;
+import android.util.Log;
 
 import com.one.netease.library.annotation.Subscribe;
 import com.one.netease.library.core.MethodManager;
@@ -70,11 +71,14 @@ public class EventBus {
         // 获取所有方法
         Method[] methods = clazz.getMethods();
 
+
+
         //性能优化. N个类父类不可能有自定义注解. 排除后再反射
         while (clazz != null) {
 
             // 找出系统类,直接跳出,不添加cacheMap (因为不是订阅者)
             String clazzName = clazz.getName();
+            Log.i("-----", "clazzName = : " +clazzName);
             if (clazzName.startsWith("java.") || clazzName.startsWith("javax")
                     || clazzName.startsWith("android.")
                     || clazzName.startsWith("androidx.")
@@ -85,6 +89,8 @@ public class EventBus {
 
 
             for (Method method : methods) {
+
+                Log.i("-----", "methodName = : " +method.getName());
                 // 获取方法的注解
                 Subscribe subscribe = method.getAnnotation(Subscribe.class);
                 // 判断注解不为空,切记不能抛异常
@@ -111,6 +117,7 @@ public class EventBus {
             }
             // 不断循环找出父类含有订阅者(注解方法)的类,直到为空,比如AppCompatActivity 没有
             clazz = clazz.getSuperclass();
+                 Log.i("-----","父类: " + clazz);
 
         }
 
