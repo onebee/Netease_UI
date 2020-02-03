@@ -4,8 +4,8 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 
-import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
+import com.one.netease.EventBus;
+import com.one.netease.event_sample.bean.EventBean;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -34,19 +34,26 @@ public class SecondActivity extends AppCompatActivity {
     public void post(View view) {
 
 //        EventBus.getDefault().post("one");
-        EventBus.getDefault().register(this);
+//        EventBus.getDefault().register(this);
+
+
+        Log.i(TAG, "SecondActivity : thread " + Thread.currentThread().getName());
+
+        EventBus.getDefault().post(new EventBean("one bit"));
+
+        finish();
     }
 
-    @Subscribe(sticky = true)
-    public void sticky(String string) {
-        Log.i(TAG,"SecondActivity receive sticky event : " + string);
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        if (EventBus.getDefault().isRegistered(this)) {
-            EventBus.getDefault().unregister(this);
-        }
-    }
+//    @Subscribe(sticky = true)
+//    public void sticky(String string) {
+//        Log.i(TAG,"SecondActivity receive sticky event : " + string);
+//    }
+//
+//    @Override
+//    protected void onDestroy() {
+//        super.onDestroy();
+//        if (EventBus.getDefault().isRegistered(this)) {
+//            EventBus.getDefault().unregister(this);
+//        }
+//    }
 }

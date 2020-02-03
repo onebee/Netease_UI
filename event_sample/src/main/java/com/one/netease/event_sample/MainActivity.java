@@ -5,9 +5,10 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 
-import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
-import org.greenrobot.eventbus.ThreadMode;
+import com.one.netease.EventBus;
+import com.one.netease.event_sample.bean.EventBean;
+import com.one.netease.library.annotation.Subscribe;
+import com.one.netease.library.mode.ThreadMode;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -19,6 +20,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+//        EventBus.getDefault().register(this);
         EventBus.getDefault().register(this);
     }
 
@@ -35,27 +37,38 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        if (EventBus.getDefault().isRegistered(this)) {
-            EventBus.getDefault().unregister(this);
-        }
+
+    @Subscribe(threadMode = ThreadMode.BACKGOUND)
+    public void getMessage(EventBean bean) {
+
+        Log.i(TAG, "MainActivity receive thread : " + Thread.currentThread().getName());
+        Log.i(TAG, "MainActivity receive  : " + bean.name);
+
     }
 
-    @Subscribe
-    public void event(String string) {
-             Log.i(TAG,"MainActivity receive event:" + string);
-    }
+//    @Override
+//    protected void onDestroy() {
+//        super.onDestroy();
+//        if (EventBus.getDefault().isRegistered(this)) {
+//            EventBus.getDefault().unregister(this);
+//        }
+//    }
 
-    @Subscribe(priority = 10,sticky = true,threadMode = ThreadMode.ASYNC)
-    public void event2(String string) {
-        Log.i(TAG," MainActivity receive event2 : " + string);
-    }
-
+//    @Subscribe
+//    public void event(String string) {
+//             Log.i(TAG,"MainActivity receive event:" + string);
+//    }
+//
+//    @Subscribe(priority = 10,sticky = true,threadMode = ThreadMode.ASYNC)
+//    public void event2(String string) {
+//        Log.i(TAG," MainActivity receive event2 : " + string);
+//    }
+//
     public void jump(View view) {
 
-        EventBus.getDefault().postSticky("sticky");
+
+//
+//        EventBus.getDefault().postSticky("sticky");
         startActivity(new Intent(this, SecondActivity.class));
     }
 

@@ -13,7 +13,7 @@ import java.lang.annotation.Target;
 
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
-public @interface Subscibe {
+public @interface Subscribe {
 
     ThreadMode threadMode() default ThreadMode.POSTING;
 }

@@ -3,7 +3,7 @@ package com.one.netease;
 import android.os.Handler;
 import android.os.Looper;
 
-import com.one.netease.library.annotation.Subscibe;
+import com.one.netease.library.annotation.Subscribe;
 import com.one.netease.library.core.MethodManager;
 
 import java.lang.reflect.InvocationTargetException;
@@ -86,9 +86,9 @@ public class EventBus {
 
             for (Method method : methods) {
                 // 获取方法的注解
-                Subscibe subscibe = method.getAnnotation(Subscibe.class);
+                Subscribe subscribe = method.getAnnotation(Subscribe.class);
                 // 判断注解不为空,切记不能抛异常
-                if (subscibe == null) {
+                if (subscribe == null) {
                     continue;
                 }
                 // 严格控制方法格式和规范  方法必须是返回void (一次匹配)
@@ -104,7 +104,7 @@ public class EventBus {
                 }
 
                 // 完全符合要求,规范的方法,保存到方法对象中MethodManager (3个重要成员:方法,参数,线程)
-                MethodManager manager = new MethodManager(parameterTypes[0], subscibe.threadMode(), method);
+                MethodManager manager = new MethodManager(parameterTypes[0], subscribe.threadMode(), method);
                 methodList.add(manager);
 
 
