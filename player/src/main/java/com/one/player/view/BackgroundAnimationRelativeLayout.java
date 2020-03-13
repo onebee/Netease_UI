@@ -59,7 +59,7 @@ public class BackgroundAnimationRelativeLayout extends RelativeLayout {
 //              animation 0 开始 1结束
 
                 // animation 的动画进度是怎么得到的  (VSYC - start)/时间
-                int foregroundAlpha = (int) animation.getAnimatedValue();
+                int foregroundAlpha = (int) ((float) animation.getAnimatedValue()*255);
                 mLayerDrawable.getDrawable(1).setAlpha(foregroundAlpha);
                 setBackground(mLayerDrawable);
             }
@@ -98,5 +98,6 @@ public class BackgroundAnimationRelativeLayout extends RelativeLayout {
 
     public void setForeground(Drawable drawable) {
         mLayerDrawable.setDrawable(1, drawable);
+        mObjectAnimator.start();
     }
 }
