@@ -12,5 +12,7 @@ public class MainActivity extends AppCompatActivity {
 //        Density.setDensity(getApplication(),this);
         setContentView(R.layout.main1);
 
+
+
     }
 }

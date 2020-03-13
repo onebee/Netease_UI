@@ -19,11 +19,20 @@
 
 
     <Button
+
+        android:id="@+id/btn1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
 
         android:onClick="jump"
 
+        />
+    
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:id="@+id/btn_audio"
         />
 
 </LinearLayout>

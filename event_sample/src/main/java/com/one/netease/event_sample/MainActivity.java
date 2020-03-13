@@ -1,10 +1,12 @@
 package com.one.netease.event_sample;
 
-import android.content.Intent;
+import android.content.Context;
+import android.media.AudioManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.one.netease.EventBus;
 import com.one.netease.event_sample.bean.EventBean;
@@ -17,7 +19,8 @@ public class MainActivity extends AppCompatActivity {
 
 
     private TextView tv;
-
+    TextView tv1;
+    int size = 55;
     public static final String TAG = "onebit>>>";
 
     @Override
@@ -29,8 +32,46 @@ public class MainActivity extends AppCompatActivity {
 
 //        EventBus.getDefault().register(this);
         EventBus.getDefault().register(this);
-    }
 
+        tv1 = findViewById(R.id.btn_audio);
+        final AudioManager am = (AudioManager) this
+                .getSystemService(Context.AUDIO_SERVICE);
+
+        final Toast toast = Toast.makeText(this, "ddd", Toast.LENGTH_SHORT);
+        final TextView tv = new TextView(this);
+        tv.setText("哈哈哈");
+        tv.setTextSize(55);
+        toast.setView(tv);
+
+
+        tv1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                boolean active = am.isMusicActive();
+                tv.setTextSize(size - 5);
+                size = size - 5;
+                toast.show();
+            }
+        });
+
+//        tv.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//
+//            }
+//        });
+
+        findViewById(R.id.btn1).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                tv.setTextSize(size);
+                size = size + 5;
+                toast.show();
+            }
+        });
+
+
+    }
 
 
     @Override
@@ -65,7 +106,7 @@ public class MainActivity extends AppCompatActivity {
 //        }
 //    }
 
-//    @Subscribe
+    //    @Subscribe
 //    public void event(String string) {
 //             Log.i(TAG,"MainActivity receive event:" + string);
 //    }
@@ -80,7 +121,7 @@ public class MainActivity extends AppCompatActivity {
 
 //
 //        EventBus.getDefault().postSticky("sticky");
-        startActivity(new Intent(this, SecondActivity.class));
+//        startActivity(new Intent(this, SecondActivity.class));
     }
 
 }

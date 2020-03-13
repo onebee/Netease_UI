@@ -18,6 +18,7 @@ public class Density {
     private static float appDensity; // 表示屏幕密度
     private static float appScaleDensity; // 字体缩放比例,默认appDensity
 
+    DisplayMetrics temp;
 
     public static void setDensity(final Application application, Activity activity) {
         // 获取当前app 的屏幕显示信息
@@ -47,7 +48,7 @@ public class Density {
         }
 
         // 计算目标值 density scaleDensity, densityDpi
-        float targetDensity = displayMetrics.widthPixels/WIDTH;// 1080/360
+        float targetDensity = displayMetrics.widthPixels / WIDTH;// 1080/360
 
         // 目标缩放比例
         float targetScaleDensity = targetDensity * (appScaleDensity / appDensity);
