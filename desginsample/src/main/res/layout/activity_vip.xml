@@ -10,7 +10,7 @@
         android:layout_height="wrap_content"
         android:fitsSystemWindows="true">
 
-        <androidx.coordinatorlayout.widget.CoordinatorLayout
+        <com.google.android.material.appbar.CollapsingToolbarLayout
             android:id="@+id/collapsing_toolbar"
             android:layout_width="match_parent"
             android:layout_height="@dimen/vip_head_layout_height"
@@ -124,7 +124,7 @@
 
             </androidx.appcompat.widget.Toolbar>
 
-        </androidx.coordinatorlayout.widget.CoordinatorLayout>
+        </com.google.android.material.appbar.CollapsingToolbarLayout>
 
     </com.google.android.material.appbar.AppBarLayout>
 

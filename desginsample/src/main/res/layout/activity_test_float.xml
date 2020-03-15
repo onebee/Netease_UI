@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                                                 xmlns:app="http://schemas.android.com/apk/res-auto"
-                                                 xmlns:tools="http://schemas.android.com/tools"
-                                                 android:id="@+id/coordinator_Layout"
-                                                 android:layout_width="match_parent"
-                                                 android:layout_height="match_parent"
-                                                 android:fitsSystemWindows="true">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/coordinator_Layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/app_bar_layout"
@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:fitsSystemWindows="true">
 
-        <androidx.coordinatorlayout.widget.CoordinatorLayout
+        <com.google.android.material.appbar.CollapsingToolbarLayout
             android:id="@+id/collapsingToolbarLayout"
             android:layout_width="match_parent"
             android:layout_height="300dp"
@@ -36,14 +36,13 @@
                 app:layout_collapseMode="pin"
                 app:layout_collapseParallaxMultiplier="0.7">
 
-                <com.youth.banner.Banner
-                    xmlns:app="http://schemas.android.com/apk/res-auto"
+                <com.youth.banner.Banner xmlns:app="http://schemas.android.com/apk/res-auto"
                     android:id="@+id/banner"
                     android:layout_width="match_parent"
                     android:layout_height="220dp"
                     android:layout_marginLeft="20dp"
                     android:layout_marginTop="50dp"
-                    android:layout_marginRight="20dp"/>
+                    android:layout_marginRight="20dp" />
 
 
             </LinearLayout>
@@ -54,8 +53,8 @@
                 android:layout_height="?attr/actionBarSize"
                 app:layout_collapseMode="pin"
                 app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-                app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"/>
-        </androidx.coordinatorlayout.widget.CoordinatorLayout>
+                app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" />
+        </com.google.android.material.appbar.CollapsingToolbarLayout>
 
 
         <com.google.android.material.tabs.TabLayout
@@ -80,28 +79,28 @@
             <com.google.android.material.tabs.TabItem
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:icon="@mipmap/v5"/>
+                android:icon="@mipmap/v5" />
             <!--布局选择器-->
             <!--android:icon="@drawable/tab_selector"-->
             <com.google.android.material.tabs.TabItem
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:text="头条"/>
+                android:text="头条" />
 
             <com.google.android.material.tabs.TabItem
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:text="社交"/>
+                android:text="社交" />
 
             <com.google.android.material.tabs.TabItem
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:text="直播"/>
+                android:text="直播" />
 
             <com.google.android.material.tabs.TabItem
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:text="嘿嘿"/>
+                android:text="嘿嘿" />
 
 
         </com.google.android.material.tabs.TabLayout>
@@ -112,8 +111,8 @@
         android:id="@+id/main_vp_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
+        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
     <!--在CoordinatorLayout中只要是能滑动控件的都需要设置layout_behavior-->
-    <!--app:layout_behavior="@string/appbar_scrolling_view_behavior"-->
+    <!--app:layout_behavior="@st ring/appbar_scrolling_view_behavior"-->
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
