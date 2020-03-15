@@ -63,6 +63,15 @@
         </RelativeLayout>
 
     </FrameLayout>
+    
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:layout_width="55dp"
+        android:layout_height="55dp"
+        android:layout_margin="16dp"
+        android:background="@color/colorAccent"
+        android:layout_gravity="bottom|right"
+        app:layout_behavior="com.one.recyclerview2.ScaleBehavior"
+        />
 
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
