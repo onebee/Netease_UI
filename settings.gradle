@@ -2,3 +2,4 @@ include ':app', ':TouchSample', ':animatesample', ':splashsample', ':screensampl
 rootProject.name='Netease_UI'
 include ':player'
 include ':ripplesample'
+include ':materialdesign'
