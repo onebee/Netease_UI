@@ -7,6 +7,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.drawable.GlideDrawable;
 import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.SimpleTarget;
+import com.one.player.ui.UIUtils;
 import com.one.player.view.BackgroundAnimationRelativeLayout;
 
 import java.util.ArrayList;
@@ -26,6 +27,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        UIUtils.getInstance(this);
         mBackgroundAnimationRelativeLayout = findViewById(R.id.rootLayout);
 
         mMusicDatas.add(R.drawable.ic_music1);
@@ -39,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
                 Glide.with(MainActivity.this)
                         .load(R.drawable.ic_music3)
                         .crossFade(500)
-                        .bitmapTransform(new BlurTransformation(MainActivity.this, 200, 3))
+                        .bitmapTransform(new BlurTransformation(MainActivity.this, 200, 5))
                         .into(new SimpleTarget<GlideDrawable>() {
                             @Override
                             public void onResourceReady(GlideDrawable resource, GlideAnimation<? super GlideDrawable> glideAnimation) {
