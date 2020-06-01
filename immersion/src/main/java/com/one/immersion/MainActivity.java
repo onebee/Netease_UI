@@ -9,8 +9,6 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 
-import com.google.android.material.snackbar.Snackbar;
-
 import androidx.appcompat.app.AppCompatActivity;
 
 public class MainActivity extends AppCompatActivity {
@@ -26,14 +24,20 @@ public class MainActivity extends AppCompatActivity {
 
         immersion();
 
-        setHeightAndPadding(this,findViewById(R.id.toolbar));
+//        setHeightAndPadding(this,findViewById(R.id.toolbar));
 
-        findViewById(R.id.fab).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Snackbar.make(v, "hhhh", Snackbar.LENGTH_LONG).show();
-            }
-        });
+//        findViewById(R.id.fab).setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Snackbar.make(v, "hhhh", Snackbar.LENGTH_LONG).show();
+//            }
+//        });
+//
+//        int width = getWindow().getDecorView().getWidth();
+//        int height = getWindow().getDecorView().getHeight();
+//
+//        Log.i("-----", " width = " + width);
+//        Log.i("-----", " height = " + height);
     }
 
     private void immersion() {
