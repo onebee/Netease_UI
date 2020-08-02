@@ -1,5 +1,6 @@
 package com.one.loadingview;
 
+import android.animation.Animator;
 import android.animation.AnimatorSet;
 import android.animation.ValueAnimator;
 import android.content.Context;
@@ -11,6 +12,8 @@ import android.graphics.Path;
 import android.util.AttributeSet;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
+import android.view.animation.AccelerateInterpolator;
+import android.view.animation.DecelerateInterpolator;
 
 /**
  * @author diaokaibin@gmail.com on 2020/8/2.
@@ -30,12 +33,12 @@ public class LoadingView extends SurfaceView implements SurfaceHolder.Callback, 
     private int lineColor;
     private int lineWidth;
     private int strokeWidth;  // 绘制线宽
-    private float downDistance=0; // 水平位置下降的距离
+    private float downDistance = 0; // 水平位置下降的距离
     private float maxDownDistance; // 水平位置下降的距离(最低点)
 
 
-    private float upDistance=0;  // 从底部上弹的距离
-    private float freeDownDistance=0; // 自由落体的距离
+    private float upDistance = 0;  // 从底部上弹的距离
+    private float freeDownDistance = 0; // 自由落体的距离
     private float maxFreeDownDistance; // 自由落体的距离(最高点)
 
     private ValueAnimator downControl;
@@ -73,6 +76,152 @@ public class LoadingView extends SurfaceView implements SurfaceHolder.Callback, 
         // 给 SurfaceHolder 添加回调
         holder.addCallback(this);
 
+        initControl();
+
+    }
+
+    private void initControl() {
+
+        downControl = ValueAnimator.ofFloat(0, maxDownDistance);
+        downControl.setDuration(500);
+        downControl.setInterpolator(new DecelerateInterpolator());
+
+        downControl.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator animation) {
+                downDistance = (float) animation.getAnimatedValue();
+            }
+        });
+
+        downControl.addListener(new Animator.AnimatorListener() {
+            @Override
+            public void onAnimationStart(Animator animation) {
+
+                mLoadingState = LoadingState.DOWN;
+                isAnimationShowing = true;
+
+            }
+
+            @Override
+            public void onAnimationEnd(Animator animation) {
+
+            }
+
+            @Override
+            public void onAnimationCancel(Animator animation) {
+
+            }
+
+            @Override
+            public void onAnimationRepeat(Animator animation) {
+
+            }
+        });
+
+
+        upControl = ValueAnimator.ofFloat(0, maxDownDistance);
+        upControl.setDuration(500);
+        upControl.setInterpolator(new AccelerateInterpolator());
+
+        upControl.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator animation) {
+                upDistance = (float) animation.getAnimatedValue();
+                if (upDistance >= maxDownDistance && freeControl != null
+                        && !freeControl.isRunning()
+
+                ) {
+                    freeControl.start();
+                }
+            }
+        });
+
+        upControl.addListener(new Animator.AnimatorListener() {
+            @Override
+            public void onAnimationStart(Animator animation) {
+
+                mLoadingState = LoadingState.UP;
+                isAnimationShowing = true;
+
+            }
+
+            @Override
+            public void onAnimationEnd(Animator animation) {
+
+            }
+
+            @Override
+            public void onAnimationCancel(Animator animation) {
+
+            }
+
+            @Override
+            public void onAnimationRepeat(Animator animation) {
+
+            }
+        });
+
+
+        freeControl = ValueAnimator.ofFloat(0, (float) (2 * Math.sqrt(maxFreeDownDistance / 5)));
+        freeControl.setDuration(500);
+        freeControl.setInterpolator(new AccelerateInterpolator());
+
+        freeControl.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator animation) {
+                float t = (float) animation.getAnimatedValue();
+
+                freeDownDistance = (float) (10 * Math.sqrt(maxFreeDownDistance / 5) * t - 5 * t * t);
+            }
+        });
+
+        freeControl.addListener(new Animator.AnimatorListener() {
+            @Override
+            public void onAnimationStart(Animator animation) {
+
+                mLoadingState = LoadingState.FREE;
+                isAnimationShowing = true;
+
+            }
+
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                isAnimationShowing = false;
+                // 重新开启动画
+                startAllAnimator();
+
+            }
+
+            @Override
+            public void onAnimationCancel(Animator animation) {
+
+            }
+
+            @Override
+            public void onAnimationRepeat(Animator animation) {
+
+            }
+        });
+
+
+        animatorSet = new AnimatorSet();
+        animatorSet.play(downControl).before(upControl);
+    }
+
+    public void startAllAnimator() {
+        if (isAnimationShowing) {
+            return;
+        }
+        if (animatorSet.isRunning()) {
+            animatorSet.end();
+            animatorSet.cancel();
+        }
+
+        mLoadingState = LoadingState.DOWN;
+        new Thread(this).start(); // 绘制线程开启
+
+        animatorSet.start();
+
     }
 
 
@@ -96,7 +245,7 @@ public class LoadingView extends SurfaceView implements SurfaceHolder.Callback, 
 
     @Override
     public void surfaceCreated(SurfaceHolder holder) {
-
+        isRunning = true;
         drawView();//
 
 
@@ -116,6 +265,15 @@ public class LoadingView extends SurfaceView implements SurfaceHolder.Callback, 
     @Override
     public void run() {
         // 绘制动画 循环
+
+        while (isRunning) {
+            drawView();
+            try {
+                Thread.sleep(16);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
 
 
     }
@@ -144,11 +302,40 @@ public class LoadingView extends SurfaceView implements SurfaceHolder.Callback, 
                     paint.setColor(ballColor);
                     paint.setStyle(Paint.Style.FILL);
                     canvas.drawCircle(getWidth() / 2f,
-                            getHeight() / 2f + downDistance - ballRadius - strokeWidth/2f,
+                            getHeight() / 2f + downDistance - ballRadius - strokeWidth / 2f,
                             ballRadius, paint
                     );
                 } else {
                     // 上升或 自由落体
+
+                    path.rQuadTo(lineWidth / 2f,
+                            2 * (maxDownDistance - upDistance),
+                            lineWidth, 0
+                    );
+
+                    paint.setColor(lineColor);
+                    paint.setStyle(Paint.Style.STROKE);
+                    canvas.drawPath(path, paint);
+
+
+                    paint.setColor(ballColor);
+                    paint.setStyle(Paint.Style.FILL);
+
+
+                    if (mLoadingState == LoadingState.FREE) {
+
+                        // 自由落体
+                        canvas.drawCircle(getWidth() / 2f,
+                                getHeight() / 2f + freeDownDistance - ballRadius - strokeWidth / 2f,
+                                ballRadius, paint);
+
+                    } else {
+                        // 上升
+                        canvas.drawCircle(getWidth() / 2f,
+                                getHeight() / 2f + (maxDownDistance - upDistance) - ballRadius - strokeWidth / 2f,
+                                ballRadius, paint);
+                    }
+
                 }
 
                 paint.setColor(ballColor);
@@ -165,14 +352,12 @@ public class LoadingView extends SurfaceView implements SurfaceHolder.Callback, 
             }
         } catch (Exception e) {
             e.printStackTrace();
-        }finally {
+        } finally {
             if (canvas != null) {
                 holder.unlockCanvasAndPost(canvas);
             }
 
         }
-
-
 
 
     }

@@ -1,6 +1,7 @@
 package com.one.loadingview;
 
 import android.os.Bundle;
+import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -12,7 +13,14 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
 
+        final LoadingView loadingView = findViewById(R.id.loadview);
 
 
+        loadingView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                loadingView.startAllAnimator();
+            }
+        });
     }
 }
