@@ -27,7 +27,6 @@ public class LoadingView extends SurfaceView implements SurfaceHolder.Callback, 
 
     private LoadingState mLoadingState = LoadingState.DOWN;
 
-
     private int ballColor;
     private int ballRadius;
     private int lineColor;
@@ -246,26 +245,21 @@ public class LoadingView extends SurfaceView implements SurfaceHolder.Callback, 
     @Override
     public void surfaceCreated(SurfaceHolder holder) {
         isRunning = true;
-        drawView();//
-
-
+        drawView();
     }
 
 
     @Override
     public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) {
-
     }
 
     @Override
     public void surfaceDestroyed(SurfaceHolder holder) {
-
     }
 
     @Override
     public void run() {
         // 绘制动画 循环
-
         while (isRunning) {
             drawView();
             try {
@@ -275,12 +269,9 @@ public class LoadingView extends SurfaceView implements SurfaceHolder.Callback, 
             }
         }
 
-
     }
 
     private void drawView() {
-
-
         try {
             // 创建画布
             if (holder != null) {
@@ -301,17 +292,12 @@ public class LoadingView extends SurfaceView implements SurfaceHolder.Callback, 
                     // 绘制小球
                     paint.setColor(ballColor);
                     paint.setStyle(Paint.Style.FILL);
-                    canvas.drawCircle(getWidth() / 2f,
-                            getHeight() / 2f + downDistance - ballRadius - strokeWidth / 2f,
-                            ballRadius, paint
+                    canvas.drawCircle(getWidth() / 2f, getHeight() / 2f + downDistance - ballRadius - strokeWidth / 2f, ballRadius, paint
                     );
                 } else {
                     // 上升或 自由落体
 
-                    path.rQuadTo(lineWidth / 2f,
-                            2 * (maxDownDistance - upDistance),
-                            lineWidth, 0
-                    );
+                    path.rQuadTo(lineWidth / 2f, 2 * (maxDownDistance - upDistance), lineWidth, 0);
 
                     paint.setColor(lineColor);
                     paint.setStyle(Paint.Style.STROKE);
@@ -323,17 +309,12 @@ public class LoadingView extends SurfaceView implements SurfaceHolder.Callback, 
 
 
                     if (mLoadingState == LoadingState.FREE) {
-
                         // 自由落体
-                        canvas.drawCircle(getWidth() / 2f,
-                                getHeight() / 2f + freeDownDistance - ballRadius - strokeWidth / 2f,
-                                ballRadius, paint);
+                        canvas.drawCircle(getWidth() / 2f, getHeight() / 2f + freeDownDistance - ballRadius - strokeWidth / 2f, ballRadius, paint);
 
                     } else {
                         // 上升
-                        canvas.drawCircle(getWidth() / 2f,
-                                getHeight() / 2f + (maxDownDistance - upDistance) - ballRadius - strokeWidth / 2f,
-                                ballRadius, paint);
+                        canvas.drawCircle(getWidth() / 2f, getHeight() / 2f + (maxDownDistance - upDistance) - ballRadius - strokeWidth / 2f, ballRadius, paint);
                     }
 
                 }
@@ -341,14 +322,8 @@ public class LoadingView extends SurfaceView implements SurfaceHolder.Callback, 
                 paint.setColor(ballColor);
                 paint.setStyle(Paint.Style.FILL);
 
-
-                canvas.drawCircle(getWidth() / 2f - lineWidth / 2f,
-                        getHeight() / 2f, ballRadius, paint
-                );
-
-                canvas.drawCircle(getWidth() / 2f + lineWidth / 2f,
-                        getHeight() / 2f, ballRadius, paint
-                );
+                canvas.drawCircle(getWidth() / 2f - lineWidth / 2f, getHeight() / 2f, ballRadius, paint);
+                canvas.drawCircle(getWidth() / 2f + lineWidth / 2f, getHeight() / 2f, ballRadius, paint);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -356,9 +331,7 @@ public class LoadingView extends SurfaceView implements SurfaceHolder.Callback, 
             if (canvas != null) {
                 holder.unlockCanvasAndPost(canvas);
             }
-
         }
-
 
     }
 }
