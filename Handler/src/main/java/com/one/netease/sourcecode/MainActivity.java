@@ -72,6 +72,10 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(MainActivity.this, "dddd", Toast.LENGTH_SHORT).show();
         if (handler1!=null)
                 handler1.sendMessageDelayed(message, 3000);
+
+
+
+        new Handler();
             }
         }).start();
     }

@@ -1,3 +1,5 @@
+include ':loadingview'
+include ':handlersamploe'
 rootProject.name='Netease_UI'
 include ':app', ':TouchSample', ':animatesample',
         ':splashsample', ':screensample',
